@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
   int a, b;
   scanf("%d %d", &a, &b);
 
-  int diff = a + b;
+  int diff = a - b;
   printf("%d - %d = %d\n", a, b, diff);
 
   return 0;
