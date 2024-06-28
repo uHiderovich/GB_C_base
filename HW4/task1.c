@@ -15,9 +15,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 int main(int argc, char const *argv[])
 {
+  setlocale(LC_ALL, "Rus");
+
   int a, b;
   scanf("%d %d", &a, &b);
 
