@@ -14,20 +14,18 @@
 #include <stdio.h>
 #include <locale.h>
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const* argv[]) {
   setlocale(LC_ALL, "Rus");
 
   int num;
   scanf("%d", &num);
 
-  if (num < 0)
-    printf("Должно быть положительное число");
-  else
-  {
+  if (num < 0) {
+    printf("Должно быть положительное число\n");
+  }
+  else {
     int count = 3;
-    while (count)
-    {
+    while (count) {
       num /= 10;
       count--;
     }

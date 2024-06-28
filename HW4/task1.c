@@ -17,23 +17,23 @@
 #include <stdlib.h>
 #include <locale.h>
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const* argv[]) {
   setlocale(LC_ALL, "Rus");
 
   int a, b;
   scanf("%d %d", &a, &b);
 
-  if (a > b)
-    printf("a должно быть <= b");
-  else if ((abs(a) > 100 || abs(b) > 100))
-    printf("a и b должны быть меньше 100");
-  else
-  {
+  if (a > b) {
+    printf("a должно быть <= b\n");
+  }
+  else if ((abs(a) > 100 || abs(b) > 100)) {
+    printf("a и b должны быть меньше 100\n");
+  }
+  else {
     int result = 0;
-    for (int i = a; i <= b; i++)
+    for (int i = a; i <= b; i++) {
       result += (i * i);
-
+    }
     printf("%d\n", result);
   }
 

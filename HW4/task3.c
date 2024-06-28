@@ -13,16 +13,15 @@
 
 #include <stdio.h>
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const* argv[]) {
   int num;
   scanf("%d", &num);
 
-  while (num)
-  {
+  while (num) {
     int current = num % 10;
-    if (current % 2 != 0)
+    if (current % 2 != 0) {
       break;
+    }
     num /= 10;
   }
 
