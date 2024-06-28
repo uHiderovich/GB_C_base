@@ -14,10 +14,7 @@ int main(int argc, char const *argv[])
   int a, b, c;
   scanf("%d %d %d", &a, &b, &c);
 
-  if (a > b || b > c)
-    printf("NO");
-  else
-    printf("YES");
+  (a > b || b > c) ? printf("NO") : printf("YES");
 
   return 0;
 }
