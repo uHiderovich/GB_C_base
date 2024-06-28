@@ -22,9 +22,7 @@ int main(int argc, char const *argv[])
   {
     int current = num % 10;
     if (current % 2 != 0)
-    {
       break;
-    }
     num /= 10;
   }
 
