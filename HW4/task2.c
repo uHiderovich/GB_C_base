@@ -21,16 +21,15 @@ int main(int argc, char const* argv[]) {
   scanf("%d", &num);
 
   if (num < 0) {
-    printf("Должно быть положительное число\n");
+    num *= -1;
   }
-  else {
-    int count = 3;
-    while (count) {
-      num /= 10;
-      count--;
-    }
-    num ? printf("NO\n") : printf("YES\n");
+
+  int count = 3;
+  while (count) {
+    num /= 10;
+    count--;
   }
+  num ? printf("NO\n") : printf("YES\n");
 
   return 0;
 }

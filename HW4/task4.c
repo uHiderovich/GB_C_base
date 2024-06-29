@@ -23,17 +23,16 @@ int main(int argc, char const* argv[])
   scanf("%d", &num);
 
   if (num < 0) {
-    printf("Должно быть положительное число\n");
+    num *= -1;
   }
-  else {
-    int reversed = 0;
-    while (num) {
-      reversed *= 10;
-      reversed += (num % 10);
-      num /= 10;
-    }
-    printf("%d\n", reversed);
+
+  int reversed = 0;
+  while (num) {
+    reversed *= 10;
+    reversed += (num % 10);
+    num /= 10;
   }
+  printf("%d\n", reversed);
 
   return 0;
 }
