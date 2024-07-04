@@ -6,13 +6,13 @@ int main(void)
 {
   setlocale(LC_ALL, "Rus");
 
-  char *ladder[] = {"Let’s", "go", "to walk", NULL};
+  char *ladder[] = {"LetвЂ™s", "go", "to walk", NULL};
 
-  // Задание 1
+  // Р—Р°РґР°РЅРёРµ 1
   printf("Hello world!\n");
   printf("--------\n");
 
-  // Задание 2
+  // Р—Р°РґР°РЅРёРµ 2
   for (int i = 0; ladder[i]; i++)
   {
     for (int j = 0; j < i; j++)
@@ -25,7 +25,7 @@ int main(void)
 
   printf("--------\n");
 
-  // Задание 3
+  // Р—Р°РґР°РЅРёРµ 3
   int init = 4;
 
   for (int i = 0; i < init; i++)
