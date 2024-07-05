@@ -13,7 +13,21 @@
 Данные на выходе: 8
 */
 
+#include <stdio.h>
+
+int SumUnits(int num) {
+  if (num / 2 == 0) {
+    return num % 2;
+  }
+
+  return num % 2 + SumUnits(num / 2);
+}
+
 int main(int argc, char const* argv[]) {
-  /* code */
+  int num;
+  scanf("%d", &num);
+
+  printf("%d", SumUnits(num));
+
   return 0;
 }

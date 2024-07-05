@@ -17,7 +17,26 @@ int acounter(void)
 Данные на выходе: 0
 */
 
+#include <stdio.h>
+
+int Acounter(void) {
+  char c;
+  static int counter;
+  scanf("%c", &c);
+
+  if (c == '.') {
+    return counter;
+  }
+
+  if (c == 'a') {
+    counter++;
+    // return Acounter() + 1;
+  }
+
+  return Acounter();
+}
+
 int main(int argc, char const* argv[]) {
-  /* code */
+  printf("%d", Acounter());
   return 0;
 }

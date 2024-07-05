@@ -14,11 +14,12 @@
 
 #include <stdio.h>
 
-void print_from_to(int a, int b) {
+void PrintFromTo(int a, int b) {
   printf("%d ", a);
 
   if (a != b) {
-    print_from_to((a > b ? (a + 1) : (a - 1)), b);
+    a = a > b ? a - 1 : a + 1;
+    PrintFromTo(a, b);
   }
 }
 
@@ -26,7 +27,7 @@ int main(int argc, char const* argv[]) {
   int a, b;
   scanf("%d %d", &a, &b);
 
-  print_from_to(a, b);
+  PrintFromTo(a, b);
 
   return 0;
 }

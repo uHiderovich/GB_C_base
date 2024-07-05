@@ -15,9 +15,9 @@ void print_num(int num)
 */
 #include <stdio.h>
 
-void print_num(int num) {
+void PrintNum(int num) {
   if (num >= 10) {
-    print_num(num / 10);
+    PrintNum(num / 10);
   }
 
   printf("%d  ", num % 10);
@@ -27,7 +27,7 @@ int main(int argc, char const* argv[]) {
   int num;
   scanf("%d", &num);
 
-  print_num(num);
+  PrintNum(num);
 
   return 0;
 }

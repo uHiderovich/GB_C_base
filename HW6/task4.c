@@ -12,7 +12,24 @@
 Данные на выходе: 13 173 19
 */
 
+#include <stdio.h>
+
+void PrintOdds(void) {
+  int num;
+  scanf("%d", &num);
+
+  if (num == 0) {
+    return;
+  }
+
+  if (num % 2 != 0) {
+    printf("%d ", num);
+  }
+
+  PrintOdds();
+}
+
 int main(int argc, char const* argv[]) {
-  /* code */
+  PrintOdds();
   return 0;
 }

@@ -13,7 +13,26 @@ int recurs_power(int n, int p)
 Данные на выходе: 81
 */
 
+#include <stdio.h>
+
+int RecursPower(int n, int p) {
+  if (p == 0) {
+    return 1;
+  }
+
+  return n * RecursPower(n, p - 1);
+}
+
 int main(int argc, char const* argv[]) {
-  /* code */
+  int n, p;
+  scanf("%d %d", &n, &p);
+
+  if ((n < -100 || n > 100) || (p < 0 || p > 100)) {
+    printf("Числа должны быть больше -100 и меньше 100");
+  }
+  else {
+    printf("%d", RecursPower(n, p));
+  }
+
   return 0;
 }
