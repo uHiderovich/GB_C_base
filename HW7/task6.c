@@ -9,7 +9,49 @@
 Данные на выходе: 11
 */
 
+#include <stdio.h>
+
+enum Setups { ARRAY_SIZE = 10 };
+
+void FillArray(int* array, enum Setups size) {
+  for (int i = 0; i < size; i++) {
+    scanf("%d", &array[i]);
+  }
+}
+
+int FindMostly(int* array, enum Setups size) {
+  static int maxValue = 0;
+  static int maxCount = 0;
+  static int currentIndex = 0;
+  int currentMax = 0;
+
+  if (currentIndex > size) {
+    return maxValue;
+  }
+
+  for (int i = currentIndex; i < size; i++) {
+    if (array[i] == array[currentIndex]) {
+      currentMax++;
+    }
+  }
+
+  if (maxCount < currentMax) {
+    maxValue = array[currentIndex];
+    maxCount = currentMax;
+  }
+
+  currentIndex++;
+  return FindMostly(array, size);
+}
+
 int main(int argc, char const* argv[]) {
-  /* code */
+  int array[ARRAY_SIZE] = { 0 };
+
+  FillArray(array, ARRAY_SIZE);
+
+  FindMostly(array, ARRAY_SIZE);
+
+  printf("%d\n", FindMostly(array, ARRAY_SIZE));
+
   return 0;
 }

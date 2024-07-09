@@ -14,15 +14,15 @@
 
 #include <stdio.h>
 
-enum ArraySize { ARRAY_SIZE = 5 };
+enum Setups { ARRAY_SIZE = 5 };
 
-void FillArray(int array[], enum ArraySize size) {
+void FillArray(int* array, enum Setups size) {
   for (int i = 0; i < size; i++) {
     scanf("%d", &array[i]);
   }
 }
 
-void PrintAverage(int array[], enum ArraySize size) {
+void PrintAverage(int* array, enum Setups size) {
   float sum = 0.0;
 
   for (int i = 0; i < size; i++) {
@@ -33,7 +33,7 @@ void PrintAverage(int array[], enum ArraySize size) {
 }
 
 int main() {
-  int array[ARRAY_SIZE];
+  int array[ARRAY_SIZE] = { 0 };
 
   FillArray(array, ARRAY_SIZE);
 

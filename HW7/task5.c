@@ -10,7 +10,42 @@
 Данные на выходе: 105 203 1 1000
 */
 
+#include <stdio.h>
+
+enum Setups { ARRAY_SIZE = 10 };
+
+void FillArray(int* array, enum Setups size) {
+  for (int i = 0; i < size; i++) {
+    scanf("%d", &array[i]);
+  }
+}
+
+void FilterArray(int* array, int* resultArray, enum Setups size) {
+  int index = 0;
+  for (int i = 0; i < size; i++) {
+    if (array[i] / 10 % 10 == 0) {
+      resultArray[index] = array[i];
+      index++;
+    }
+  }
+}
+
+void PrintArray(int* array, enum Setups size) {
+  for (int i = 0; i < size; i++) {
+    printf("%d ", array[i]);
+  }
+  printf("\n");
+}
+
 int main(int argc, char const* argv[]) {
-  /* code */
+  int array[ARRAY_SIZE] = { 0 };
+  int resultArray[ARRAY_SIZE] = { 0 };
+
+  FillArray(array, ARRAY_SIZE);
+
+  FilterArray(array, resultArray, ARRAY_SIZE);
+
+  PrintArray(resultArray, ARRAY_SIZE);
+
   return 0;
 }

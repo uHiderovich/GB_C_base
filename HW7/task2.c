@@ -11,7 +11,34 @@
 Данные на выходе: -5
 */
 
-int main(int argc, char const* argv[]) {
-  /* code */
+#include <stdio.h>
+
+enum Setups { ARRAY_SIZE = 5 };
+
+void FillArray(int* array, enum Setups size) {
+  for (int i = 0; i < size; i++) {
+    scanf("%d", &array[i]);
+  }
+}
+
+void PrintMin(int* array, enum Setups size) {
+  int min = array[0];
+
+  for (int i = 1; i < size; i++) {
+    if (min > array[i]) {
+      min = array[i];
+    }
+  }
+
+  printf("%d\n", min);
+}
+
+int main() {
+  int array[ARRAY_SIZE] = { 0 };
+
+  FillArray(array, ARRAY_SIZE);
+
+  PrintMin(array, ARRAY_SIZE);
+
   return 0;
 }
