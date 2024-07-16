@@ -19,7 +19,34 @@ void sort_array(int size, int a[])
 Данные на выходе: 1 2 3 4 5
 */
 
-int main(int argc, char const* argv[]) {
-  /* code */
-  return 0;
+#include <stdio.h>
+
+// сортировка вставкой
+void sort_array(int size, int a[]) {
+  for (int i = 1; i < size; ++i) {
+    int current = a[i];
+    int j = i - 1;
+
+    while (j >= 0 && current <= a[j]) {
+      a[j + 1] = a[j];
+      j--;
+    }
+
+    a[j + 1] = current;
+  }
 }
+
+// int main(int argc, char const* argv[]) {
+//   int array[] = { 20, 19, 4, 3, 2, 1, 18, 17, 13, 12, 11, 16, 15, 14, 10, 9, 8, 7, 6, 5 };
+//   const int size = 20;
+
+//   sort_array(size, array);
+
+//   for (int i = 0; i < size; ++i) {
+//     printf("%d ", array[i]);
+//   }
+
+//   printf("\n");
+
+//   return 0;
+// }

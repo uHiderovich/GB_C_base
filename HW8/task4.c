@@ -18,7 +18,27 @@ int is_two_same(int size, int a[]);
 Данные на выходе: YES
 */
 
-int main(int argc, char const* argv[]) {
-  /* code */
+// #include <stdio.h>
+
+int is_two_same(int size, int a[]) {
+  int counter = 0;
+
+  for (int i = 0; i < size; i++) {
+    for (int j = i + 1; j < size; j++) {
+      if (a[i] == a[j]) {
+        return 1;
+      }
+    }
+  }
+
   return 0;
 }
+
+// int main(int argc, char const* argv[]) {
+//   int arr[] = { 1, 2, 1, 4, 5 };
+//   int size1 = 5;
+
+//   printf("%d\n", is_two_same(size1, arr));
+
+//   return 0;
+// }
