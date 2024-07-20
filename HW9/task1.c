@@ -14,7 +14,73 @@
 Данные на выходе: b c
 */
 
-int main(int argc, char const* argv[]) {
-  /* code */
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LEN 100
+#define WORD_MAX_COUNT 256
+
+void SortChars(char* chars, int count) {
+  for (int i = 0; i < count - 1; i++) {
+    for (int j = i + 1; j < count; j++) {
+      if (chars[i] > chars[j]) {
+        char temp = chars[i];
+        chars[i] = chars[j];
+        chars[j] = temp;
+      }
+    }
+  }
+}
+
+void CalcSymbolsCount(char* word, int* count) {
+  for (int i = 0; word[i] != '\0'; i++) {
+    count[(unsigned char)word[i]]++;
+  }
+}
+
+void FindUniqueChars(char* word1, char* word2, char* result) {
+  int count1[WORD_MAX_COUNT] = { 0 };
+  int count2[WORD_MAX_COUNT] = { 0 };
+  int index = 0;
+
+  CalcSymbolsCount(word1, count1);
+
+  CalcSymbolsCount(word2, count2);
+
+  for (int i = 0; i < WORD_MAX_COUNT; i++) {
+    if (count1[i] == 1 && count2[i] == 1) {
+      result[index++] = (char)i;
+    }
+  }
+
+  result[index] = '\0';
+
+  SortChars(result, index);
+}
+
+int main() {
+  FILE* input = fopen("input.txt", "r");
+  FILE* output = fopen("output.txt", "w");
+
+  if (!input || !output) {
+    printf("Ошибка открытия файла.\n");
+    return 1;
+  }
+
+  char word1[MAX_LEN + 1], word2[MAX_LEN + 1], result[MAX_LEN + 1];
+
+  fscanf(input, "%s %s", word1, word2);
+
+  FindUniqueChars(word1, word2, result);
+
+  for (int i = 0; result[i] != '\0'; i++) {
+    if (i > 0) fprintf(output, " ");
+    fprintf(output, "%c", result[i]);
+  }
+
+  fclose(input);
+  fclose(output);
+
   return 0;
 }
+
