@@ -14,7 +14,61 @@
 Данные на выходе: 0 9 13 48
 */
 
-int main(int argc, char const* argv[]) {
-  /* code */
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_LEN 1000
+
+int Compare(const void* a, const void* b) {
+  return (*(int*)a - *(int*)b);
+}
+
+int IsDigit(char c) {
+  return c >= '0' && c <= '9';
+}
+
+int ExtractNumbers(char* str, int* numbers) {
+  int index = 0;
+  char* ptr = str;
+
+  while (*ptr) {
+    if (IsDigit(*ptr)) {
+      numbers[index++] = strtol(ptr, &ptr, 10);
+    }
+    else {
+      ptr++;
+    }
+  }
+  return index;
+}
+
+int main() {
+  FILE* input = fopen("input.txt", "r");
+  FILE* output = fopen("output.txt", "w");
+
+  if (!input || !output) {
+    printf("Ошибка открытия файла.\n");
+    return 1;
+  }
+
+  char str[MAX_LEN + 1];
+  int numbers[MAX_LEN / 2];
+
+  fgets(str, MAX_LEN, input);
+
+  int count = ExtractNumbers(str, numbers);
+
+  qsort(numbers, count, sizeof(int), Compare);
+
+  for (int i = 0; i < count; i++) {
+    if (i > 0) fprintf(output, " ");
+    fprintf(output, "%d", numbers[i]);
+  }
+  fprintf(output, "\n");
+
+  fclose(input);
+  fclose(output);
+
   return 0;
 }
+
