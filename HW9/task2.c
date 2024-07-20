@@ -12,7 +12,47 @@
 Данные на выходе: bbaaccddBACD
 */
 
-int main(int argc, char const* argv[]) {
-  /* code */
+#include <stdio.h>
+
+#define MAX_LEN 1000
+
+void ReplaceChars(char* str) {
+  for (int i = 0; str[i] != '\0'; i++) {
+    if (str[i] == 'a') {
+      str[i] = 'b';
+    }
+    else if (str[i] == 'b') {
+      str[i] = 'a';
+    }
+    else if (str[i] == 'A') {
+      str[i] = 'B';
+    }
+    else if (str[i] == 'B') {
+      str[i] = 'A';
+    }
+  }
+}
+
+int main() {
+  FILE* input = fopen("input.txt", "r");
+  FILE* output = fopen("output.txt", "w");
+
+  if (!input || !output) {
+    printf("Ошибка открытия файла.\n");
+    return 1;
+  }
+
+  char str[MAX_LEN + 1];
+
+  fgets(str, MAX_LEN, input);
+
+  ReplaceChars(str);
+
+  fputs(str, output);
+
+  fclose(input);
+  fclose(output);
+
   return 0;
 }
+
