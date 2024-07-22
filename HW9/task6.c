@@ -44,6 +44,7 @@ int main() {
     return 1;
   }
   fgets(str, MAX_LEN, input);
+  fclose(input);
 
   result = FindCountEndA(str);
 

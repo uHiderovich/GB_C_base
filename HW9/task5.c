@@ -53,6 +53,7 @@ int main() {
     return 1;
   }
   fgets(str, MAX_LEN, input);
+  fclose(input);
 
   str[strcspn(str, "\n")] = '\0';
   FindLongestWord(str, longestWord);
