@@ -46,29 +46,32 @@ int ExtractNumbers(char* str, int* numbers) {
 int main() {
   setlocale(LC_ALL, "Rus");
 
-  FILE* input = fopen("input.txt", "r");
-  FILE* output = fopen("output.txt", "w");
-
-  if (!input || !output) {
-    printf("Ошибка открытия файла.\n");
-    return 1;
-  }
-
   char str[MAX_LEN + 1];
   int numbers[MAX_LEN / 2];
 
+  char* inputFilteName = "input.txt";
+  char* outputFilteName = "output.txt";
+
+  FILE* input = fopen(inputFilteName, "r");
+  if (!input) {
+    printf("Ошибка открытия файла %s.\n", inputFilteName);
+    return 1;
+  }
   fgets(str, MAX_LEN, input);
+  fclose(input);
 
   int count = ExtractNumbers(str, numbers);
-
   qsort(numbers, count, sizeof(int), Compare);
 
+  FILE* output = fopen(outputFilteName, "w");
+  if (!output) {
+    printf("Ошибка открытия файла %s.\n", outputFilteName);
+    return 1;
+  }
   for (int i = 0; i < count; i++) {
     fprintf(output, "%d ", numbers[i]);
   }
   fprintf(output, "\n");
-
-  fclose(input);
   fclose(output);
 
   return 0;

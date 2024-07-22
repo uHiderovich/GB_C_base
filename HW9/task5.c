@@ -41,26 +41,28 @@ void FindLongestWord(char* str, char* longestWord) {
 int main() {
   setlocale(LC_ALL, "Rus");
 
-  FILE* input = fopen("input.txt", "r");
-  FILE* output = fopen("output.txt", "w");
+  char str[MAX_LEN + 1];
+  char longestWord[MAX_LEN + 1];
 
-  if (!input || !output) {
-    printf("Ошибка открытия файла.\n");
+  char* inputFilteName = "input.txt";
+  char* outputFilteName = "output.txt";
+
+  FILE* input = fopen(inputFilteName, "r");
+  if (!input) {
+    printf("Ошибка открытия файла %s.\n", inputFilteName);
     return 1;
   }
-
-  char str[MAX_LEN + 1];
-  char longest_word[MAX_LEN + 1];
-
   fgets(str, MAX_LEN, input);
 
   str[strcspn(str, "\n")] = '\0';
+  FindLongestWord(str, longestWord);
 
-  FindLongestWord(str, longest_word);
-
-  fprintf(output, "%s\n", longest_word);
-
-  fclose(input);
+  FILE* output = fopen(outputFilteName, "w");
+  if (!output) {
+    printf("Ошибка открытия файла %s.\n", outputFilteName);
+    return 1;
+  }
+  fprintf(output, "%s\n", longestWord);
   fclose(output);
 
   return 0;

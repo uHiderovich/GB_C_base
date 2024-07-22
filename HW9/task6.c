@@ -32,21 +32,27 @@ int FindCountEndA(char* str) {
 int main() {
   setlocale(LC_ALL, "Rus");
 
-  FILE* input = fopen("input.txt", "r");
-  FILE* output = fopen("output.txt", "w");
+  char str[MAX_LEN + 1];
+  int result;
 
-  if (!input || !output) {
-    printf("Ошибка открытия файла.\n");
+  char* inputFilteName = "input.txt";
+  char* outputFilteName = "output.txt";
+
+  FILE* input = fopen(inputFilteName, "r");
+  if (!input) {
+    printf("Ошибка открытия файла %s.\n", inputFilteName);
     return 1;
   }
-
-  char str[MAX_LEN + 1];
-
   fgets(str, MAX_LEN, input);
 
-  fprintf(output, "%d\n", FindCountEndA(str));
+  result = FindCountEndA(str);
 
-  fclose(input);
+  FILE* output = fopen(outputFilteName, "w");
+  if (!output) {
+    printf("Ошибка открытия файла %s.\n", outputFilteName);
+    return 1;
+  }
+  fprintf(output, "%d\n", result);
   fclose(output);
 
   return 0;

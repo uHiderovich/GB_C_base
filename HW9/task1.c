@@ -62,25 +62,30 @@ void FindUniqueChars(char* word1, char* word2, char* result) {
 int main() {
   setlocale(LC_ALL, "Rus");
 
-  FILE* input = fopen("input.txt", "r");
-  FILE* output = fopen("output.txt", "w");
-
-  if (!input || !output) {
-    printf("Ошибка открытия файла.\n");
-    return 1;
-  }
+  char* inputFilteName = "input.txt";
+  char* outputFilteName = "output.txt";
 
   char word1[MAX_LEN + 1], word2[MAX_LEN + 1], result[MAX_LEN + 1];
 
+  FILE* input = fopen(inputFilteName, "r");
+  if (!input) {
+    printf("Ошибка открытия файла %s.\n", inputFilteName);
+    return 1;
+  }
   fscanf(input, "%s %s", word1, word2);
+  fclose(input);
 
   FindUniqueChars(word1, word2, result);
 
+  FILE* output = fopen(outputFilteName, "w");
+  if (!output) {
+    printf("Ошибка открытия файла %s.\n", outputFilteName);
+    return 1;
+  }
   for (int i = 0; result[i] != '\0'; i++) {
     fprintf(output, "%c ", result[i]);
   }
-
-  fclose(input);
+  fprintf(output, "\n");
   fclose(output);
 
   return 0;
