@@ -19,16 +19,19 @@
 #define MAX_LEN 1000
 
 void RemoveDuplicatesAndSpaces(char* str, char* result) {
-  int seen[256] = { 0 };
+  int seen[26] = { 0 };
   int index = 0;
 
   for (int i = 0; str[i] != '\0'; i++) {
-    char ch = str[i];
-    if (ch != ' ' && !seen[(unsigned char)ch]) {
-      seen[(unsigned char)ch] = 1;
-      result[index++] = ch;
+    char charValue = str[i];
+    int charNumber = charValue - 'a';
+
+    if (charValue != ' ' && !seen[charNumber]) {
+      seen[charNumber] = 1;
+      result[index++] = charValue;
     }
   }
+
   result[index] = '\0';
 }
 
