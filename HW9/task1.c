@@ -18,7 +18,7 @@
 #include <string.h>
 
 #define MAX_LEN 100
-#define WORD_MAX_COUNT 256
+#define SYMBOLS_MAX_COUNT 26
 
 void SortChars(char* chars, int count) {
   for (int i = 0; i < count - 1; i++) {
@@ -34,22 +34,22 @@ void SortChars(char* chars, int count) {
 
 void CalcSymbolsCount(char* word, int* count) {
   for (int i = 0; word[i] != '\0'; i++) {
-    count[(unsigned char)word[i]]++;
+    count[word[i] - 'a']++;
   }
 }
 
 void FindUniqueChars(char* word1, char* word2, char* result) {
-  int count1[WORD_MAX_COUNT] = { 0 };
-  int count2[WORD_MAX_COUNT] = { 0 };
+  int count1[SYMBOLS_MAX_COUNT] = { 0 };
+  int count2[SYMBOLS_MAX_COUNT] = { 0 };
   int index = 0;
 
   CalcSymbolsCount(word1, count1);
 
   CalcSymbolsCount(word2, count2);
 
-  for (int i = 0; i < WORD_MAX_COUNT; i++) {
+  for (int i = 0; i < SYMBOLS_MAX_COUNT; i++) {
     if (count1[i] == 1 && count2[i] == 1) {
-      result[index++] = (char)i;
+      result[index++] = (char)(i + 97);
     }
   }
 
