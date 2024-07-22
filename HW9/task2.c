@@ -19,17 +19,11 @@
 
 void ReplaceChars(char* str) {
   for (int i = 0; str[i] != '\0'; i++) {
-    if (str[i] == 'a') {
-      str[i] = 'b';
+    if (str[i] == 'a' || str[i] == 'A') {
+      str[i] += 1;
     }
-    else if (str[i] == 'b') {
-      str[i] = 'a';
-    }
-    else if (str[i] == 'A') {
-      str[i] = 'B';
-    }
-    else if (str[i] == 'B') {
-      str[i] = 'A';
+    else if (str[i] == 'b' || str[i] == 'B') {
+      str[i] -= 1;
     }
   }
 }
