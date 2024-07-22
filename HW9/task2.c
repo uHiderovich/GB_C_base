@@ -18,13 +18,17 @@
 #define MAX_LEN 1000
 
 void ReplaceChars(char* str) {
+  _Bool isA;
+  _Bool isB;
+  int diff;
+
   for (int i = 0; str[i] != '\0'; i++) {
-    if (str[i] == 'a' || str[i] == 'A') {
-      str[i] += 1;
-    }
-    else if (str[i] == 'b' || str[i] == 'B') {
-      str[i] -= 1;
-    }
+    isA = str[i] == 'a' || str[i] == 'A';
+    isB = str[i] == 'b' || str[i] == 'B';
+
+    diff = isA ? 1 : isB ? -1 : 0;
+
+    str[i] += diff;
   }
 }
 
@@ -47,10 +51,6 @@ int main() {
   ReplaceChars(str);
 
   FILE* output = fopen(outputFilteName, "w");
-  if (!output) {
-    printf("Ошибка открытия файла %s.\n", outputFilteName);
-    return 1;
-  }
   fputs(str, output);
   fprintf(output, "\n");
   fclose(output);

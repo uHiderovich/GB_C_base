@@ -64,10 +64,6 @@ int main() {
   qsort(numbers, count, sizeof(int), Compare);
 
   FILE* output = fopen(outputFilteName, "w");
-  if (!output) {
-    printf("Ошибка открытия файла %s.\n", outputFilteName);
-    return 1;
-  }
   for (int i = 0; i < count; i++) {
     fprintf(output, "%d ", numbers[i]);
   }

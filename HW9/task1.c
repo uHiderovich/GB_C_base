@@ -78,10 +78,6 @@ int main() {
   FindUniqueChars(word1, word2, result);
 
   FILE* output = fopen(outputFilteName, "w");
-  if (!output) {
-    printf("Ошибка открытия файла %s.\n", outputFilteName);
-    return 1;
-  }
   for (int i = 0; result[i] != '\0'; i++) {
     fprintf(output, "%c ", result[i]);
   }

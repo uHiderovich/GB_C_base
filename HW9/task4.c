@@ -52,10 +52,6 @@ int main() {
   RemoveDuplicatesAndSpaces(str, result);
 
   FILE* output = fopen(outputFilteName, "w");
-  if (!output) {
-    printf("Ошибка открытия файла %s.\n", outputFilteName);
-    return 1;
-  }
   fputs(result, output);
   fclose(output);
 

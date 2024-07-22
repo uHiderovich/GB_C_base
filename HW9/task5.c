@@ -59,10 +59,6 @@ int main() {
   FindLongestWord(str, longestWord);
 
   FILE* output = fopen(outputFilteName, "w");
-  if (!output) {
-    printf("Ошибка открытия файла %s.\n", outputFilteName);
-    return 1;
-  }
   fprintf(output, "%s\n", longestWord);
   fclose(output);
 

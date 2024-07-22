@@ -49,10 +49,6 @@ int main() {
   result = FindCountEndA(str);
 
   FILE* output = fopen(outputFilteName, "w");
-  if (!output) {
-    printf("Ошибка открытия файла %s.\n", outputFilteName);
-    return 1;
-  }
   fprintf(output, "%d\n", result);
   fclose(output);
 
