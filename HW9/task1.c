@@ -77,8 +77,7 @@ int main() {
   FindUniqueChars(word1, word2, result);
 
   for (int i = 0; result[i] != '\0'; i++) {
-    if (i > 0) fprintf(output, " ");
-    fprintf(output, "%c", result[i]);
+    fprintf(output, "%c ", result[i]);
   }
 
   fclose(input);

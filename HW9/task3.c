@@ -64,8 +64,7 @@ int main() {
   qsort(numbers, count, sizeof(int), Compare);
 
   for (int i = 0; i < count; i++) {
-    if (i > 0) fprintf(output, " ");
-    fprintf(output, "%d", numbers[i]);
+    fprintf(output, "%d ", numbers[i]);
   }
   fprintf(output, "\n");
 
