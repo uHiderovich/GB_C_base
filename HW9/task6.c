@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <locale.h>
 
 #define MAX_LEN 1000
 
@@ -29,6 +30,8 @@ int FindCountEndA(char* str) {
 }
 
 int main() {
+  setlocale(LC_ALL, "Rus");
+
   FILE* input = fopen("input.txt", "r");
   FILE* output = fopen("output.txt", "w");
 

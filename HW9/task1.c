@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <locale.h>
 
 #define MAX_LEN 100
 #define SYMBOLS_MAX_COUNT 26
@@ -59,6 +60,8 @@ void FindUniqueChars(char* word1, char* word2, char* result) {
 }
 
 int main() {
+  setlocale(LC_ALL, "Rus");
+
   FILE* input = fopen("input.txt", "r");
   FILE* output = fopen("output.txt", "w");
 

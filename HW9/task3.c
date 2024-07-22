@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #define MAX_LEN 1000
 
@@ -43,6 +44,8 @@ int ExtractNumbers(char* str, int* numbers) {
 }
 
 int main() {
+  setlocale(LC_ALL, "Rus");
+
   FILE* input = fopen("input.txt", "r");
   FILE* output = fopen("output.txt", "w");
 

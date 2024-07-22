@@ -13,6 +13,7 @@
 */
 
 #include <stdio.h>
+#include <locale.h>
 
 #define MAX_LEN 1000
 
@@ -34,6 +35,8 @@ void ReplaceChars(char* str) {
 }
 
 int main() {
+  setlocale(LC_ALL, "Rus");
+
   FILE* input = fopen("input.txt", "r");
   FILE* output = fopen("output.txt", "w");
 
