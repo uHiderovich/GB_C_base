@@ -19,10 +19,30 @@
 
 #define MAX_LEN 1000
 
+void ReplaceFileExtensionOfPath(char* path, char* replacedPath) {
+  int lastDotIndex, lastSlashIndex;
+
+  for (int i = 0; path[i] != '\0'; i++) {
+    if (path[i] == '.') {
+      lastDotIndex = i;
+    }
+    if (path[i] == '/') {
+      lastSlashIndex = i;
+    }
+
+    replacedPath[i] = path[i];
+  }
+
+  if (lastSlashIndex >= lastDotIndex) {
+    strcat(replacedPath, ".html");
+  }
+}
+
 int main() {
   setlocale(LC_ALL, "Rus");
 
-  char str[MAX_LEN + 1];
+  char path[MAX_LEN + 1];
+  char replacedPath[MAX_LEN + 6];
 
   char* inputFilteName = "input.txt";
   char* outputFilteName = "output.txt";
@@ -32,13 +52,14 @@ int main() {
     printf("Ошибка открытия файла %s.\n", inputFilteName);
     return 1;
   }
-  fgets(str, MAX_LEN, input);
+  fgets(path, MAX_LEN, input);
   fclose(input);
 
+  ReplaceFileExtensionOfPath(path, replacedPath);
 
   FILE* output = fopen(outputFilteName, "w");
-  fputs(str, output);
-  fprintf(output, "\n");
+  fputs(replacedPath, output);
+  fprintf(output, "\0");
   fclose(output);
 
   return 0;
