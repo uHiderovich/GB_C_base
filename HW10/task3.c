@@ -20,21 +20,18 @@
 #define MAX_LEN 1000
 
 void ReplaceFileExtensionOfPath(char* path, char* replacedPath) {
-  int lastDotIndex, lastSlashIndex;
-
-  for (int i = 0; path[i] != '\0'; i++) {
-    if (path[i] == '.') {
-      lastDotIndex = i;
-    }
+  for (int i = strlen(path) - 1; i > 0; i--) {
     if (path[i] == '/') {
-      lastSlashIndex = i;
+      strcpy(replacedPath, path);
+      strcat(replacedPath, ".html");
+      break;
     }
 
-    replacedPath[i] = path[i];
-  }
-
-  if (lastSlashIndex >= lastDotIndex) {
-    strcat(replacedPath, ".html");
+    if (path[i] == '.') {
+      memcpy(replacedPath, path, i);
+      strcat(replacedPath, ".html");
+      break;
+    }
   }
 }
 
