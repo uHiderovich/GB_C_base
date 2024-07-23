@@ -13,14 +13,38 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 #include <locale.h>
 
 #define MAX_LEN 1000
+
+void ClearUnnecessarySpaces(char* str, char* result) {
+  int index = 0;
+  _Bool currentIsSpace, nextIsSpace, isEndIndex;
+
+  for (int i = 0; str[i] != '\0'; i++) {
+    char current = str[i];
+    char next = str[i + 1];
+
+    currentIsSpace = current == ' ';
+    nextIsSpace = next == ' ';
+    isEndIndex = (i == strlen(str) - 1);
+
+    if (currentIsSpace && (i == 0 || nextIsSpace || isEndIndex)) {
+      continue;
+    }
+
+    result[index++] = current;
+  }
+
+  result[index] = '\0';
+}
 
 int main() {
   setlocale(LC_ALL, "Rus");
 
   char str[MAX_LEN + 1];
+  char result[MAX_LEN + 1];
 
   char* inputFilteName = "input.txt";
   char* outputFilteName = "output.txt";
@@ -33,10 +57,10 @@ int main() {
   fgets(str, MAX_LEN, input);
   fclose(input);
 
+  ClearUnnecessarySpaces(str, result);
 
   FILE* output = fopen(outputFilteName, "w");
-  fputs(str, output);
-  fprintf(output, "\n");
+  fputs(result, output);
   fclose(output);
 
   return 0;
