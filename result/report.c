@@ -10,11 +10,17 @@
 // }
 
 void ReadFileData(char* filename) {
+  int r, Y, M, D, h, m, t;
   FILE* file = fopen(filename, "r");
   if (!file) {
     printf("Ошибка открытия файла %s.\n", filename);
     return 1;
+  };
+
+  while ((r = fscanf(file, "%Y;%M;%D;%h;%m;%t", &Y, &M, &Y, &h, &m, &t)) > 0) {
+
   }
+
   // fgets(str, MAX_LEN, input);
   fclose(file);
 }
