@@ -5,3 +5,7 @@ input.txt
 output.txt
 
 .DS_Store
+
+
+*.exe
+*.o

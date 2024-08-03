@@ -1,53 +1,87 @@
-#include <stdint.h>
 #include "temp_functions.h"
 
-void AddMonthRecord(struct month* months, int number, int t) {
-  int currentMin = months[number].min;
-  int currentMax = months[number].max;
+void SetRecordData(Record* record, int t) {
+  int currentMin = record->min;
+  int currentMax = record->max;
 
-  months[number].min = currentMin > t ? t : currentMin;
-  months[number].max = currentMax < t ? t : currentMax;
-  months[number].full += t;
-  months[number].count++;
-  months[number].avg = (months[number].full / months[number].count);
+  record->min = currentMin > t ? t : currentMin;
+  record->max = currentMax < t ? t : currentMax;
+  record->full += t;
+  record->count++;
+  record->avg = (record->full / record->count);
 }
 
-void SetYearData(struct year* year, int t) {
-  int currentMin = year->min;
-  int currentMax = year->max;
-
-  year->min = currentMin > t ? t : currentMin;
-  year->max = currentMax < t ? t : currentMax;
-  year->full += t;
-  year->count++;
-  year->avg = (year->full / year->count);
-}
-
-void PrintYear(struct year* year) {
-  printf("РЎС‚Р°С‚РёСЃС‚РёРєР° Р·Р° РіРѕРґ.\n");
-  printf("РњРёРЅРёРјР°Р»СЊРЅР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°: %d\n", year->min);
-  printf("РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°: %d\n", year->max);
-  printf("РЎСЂРµРґРЅСЏСЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°: %f\n", year->avg);
+void PrintYear(Record* year) {
+  printf("Статистика за год.\n");
+  printf("Минимальная температура: %d\n", year->min);
+  printf("Максимальная температура: %d\n", year->max);
+  printf("Средняя температура: %f\n", year->avg);
   printf("----------\n\n");
 }
 
-void PrintMonth(struct month* month, int number) {
-  printf("РњРµСЃСЏС† %d\n", number);
-  printf("РњРёРЅРёРјР°Р»СЊРЅР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°: %d\n", month->min);
-  printf("РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°: %d\n", month->max);
-  printf("РЎСЂРµРґРЅСЏСЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°: %f\n", month->avg);
+void PrintMonth(Record* month, int number) {
+  printf("Месяц %d\n", number);
+  printf("Минимальная температура: %d\n", month->min);
+  printf("Максимальная температура: %d\n", month->max);
+  printf("Средняя температура: %f\n", month->avg);
   printf("----------\n\n");
 }
 
-void PrintMonthsStat(struct month* monthsStat, int number) {
-  if (number >= 1 && number <= MONTHS_COUNT) {
-    printf("РЎС‚Р°С‚РёСЃС‚РёРєР° Р·Р° РІС‹Р±СЂР°РЅРЅС‹Р№ РјРµСЃСЏС†.\n");
-    PrintMonth(&monthsStat[number + 1], number);
+void PrintMonths(struct Record* months) {
+  printf("Статистика по месяцам.\n");
+  for (int i = 0; i < MONTHS_COUNT; i++) {
+    PrintMonth(&months[i], i + 1);
+  }
+}
+
+int FillTempStatOfFile(char* fileName, struct Record* months, struct Record* year) {
+  int r, rowsCount;
+  int Y, M, D, h, m, t;
+
+  FILE* file = fopen(fileName, "r");
+  if (!file) {
+    printf("Ошибка открытия файла %s.\n", fileName);
   }
   else {
-    printf("РЎС‚Р°С‚РёСЃС‚РёРєР° РїРѕ РјРµСЃСЏС†Р°Рј.\n\n");
-    for (int i = 0; i < MONTHS_COUNT; i++) {
-      PrintMonth(&monthsStat[i], i + 1);
+    while ((r = fscanf(file, "%d;%d;%d;%d;%d;%d", &Y, &M, &D, &h, &m, &t)) > 0) {
+      rowsCount++;
+      if (r < COLUMNS_COUNT)
+      {
+        char s[20];
+        fscanf(file, "%[^\n]", s);
+        printf("Ошибка в строке %d: %s\n\n", rowsCount, s);
+      }
+      else {
+        SetRecordData(year, t);
+        SetRecordData(&months[M - 1], t);
+      }
+    }
+    fclose(file);
+    return 0;
+  }
+}
+
+void PrintRecord(char* fileName, int monthNumber) {
+  Record months[MONTHS_COUNT];
+  Record year = { 0, 0, 0.0, 0, 0.0 };
+
+  for (int i = 0; i < 12; ++i) {
+    months[i].min = 0;
+    months[i].max = 0;
+    months[i].full = 0.0;
+    months[i].count = 0;
+    months[i].avg = 0.0;
+  }
+
+  int readResult = FillTempStatOfFile(fileName, months, &year);
+
+  if (readResult == 0) {
+    if (monthNumber >= 1 && monthNumber <= MONTHS_COUNT) {
+      PrintMonth(&months[monthNumber], monthNumber);
+    }
+    else {
+      PrintYear(&year);
+      PrintMonths(months);
     }
   }
 }

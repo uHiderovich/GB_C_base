@@ -1,37 +1,32 @@
 #ifndef TEMP_FUNCTIONS_H
 #define TEMP_FUNCTIONS_H
 
+#include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
+
 #define MONTHS_COUNT 12
 #define COLUMNS_COUNT 6
 
-typedef struct Month
+typedef struct Record
 {
-  int min;
-  int max;
-  int full;
-  int count;
+  int8_t min;
+  int8_t max;
+  uint16_t count;
+  double full;
   double avg;
-} Month;
+} Record;
 
-typedef struct Year
-{
-  int min;
-  int max;
-  int full;
-  int count;
-  double avg;
-} Year;
+void SetRecordData(Record *record, int t);
 
-void SetMonthData(Month *months, int number, int t);
+void PrintYear(struct Record *year);
 
-void SetYearData(struct Year *year, int t);
+void PrintMonth(struct Record *month, int number);
 
-void PrintYear(struct Year *year);
+void PrintMonths(struct Record *months);
 
-void PrintMonth(struct Month *month, int number);
+int FillTempStatOfFile(char *fileName, struct Record *months, struct Record *year);
 
-void PrintMonthsStat(struct Month *monthsStat, int number);
-
-int FillTempStatOfFile(char *fileName, struct Month *monthsStat, struct Year *yearStat);
+void PrintRecord(char *fileName, int monthNumber);
 
 #endif /* TEMP_FUNCTIONS_H */
