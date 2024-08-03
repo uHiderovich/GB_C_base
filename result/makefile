@@ -1,14 +1,14 @@
-all: report
+# all: report
 
-report: report.o temp_functions.o
-	gcc -o report report.o temp_functions.o
+# report: report.o temp_functions.o
+# 	gcc -o report report.o temp_functions.o
 
-report.o: report.c temp_functions.h
-	gcc -c -o report.o report.c
+# report.o: report.c temp_functions.h
+# 	gcc -c -o report.o report.c
 
-temp_functions.o: temp_functions.c
-	gcc -c -o temp_functions.o temp_functions.c
+# temp_functions.o: temp_functions.c
+# 	gcc -c -o temp_functions.o temp_functions.c
 
-clear:
-	del *.o
-	del temp_functions.exe
+# clear:
+# 	del *.o
+# 	del temp_functions.exe

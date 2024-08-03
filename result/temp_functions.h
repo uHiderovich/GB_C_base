@@ -1,25 +1,34 @@
-#ifndef _TEMP_FUNCTIONS_H_
-#define __TEMP_FUNCTIONS_H_
+#ifndef TEMP_FUNCTIONS_H
+#define TEMP_FUNCTIONS_H
+
+#define MONTHS_COUNT 12
 
 struct month
 {
-  uint16_t min;
-  uint16_t max;
-  uint16_t full;
-  uint16_t avg;
-  uint8_t count;
+  int min;
+  int max;
+  int full;
+  int count;
+  double avg;
 };
 
 struct year
 {
-  uint16_t min;
-  uint16_t max;
-  uint16_t full;
-  uint16_t avg;
+  int min;
+  int max;
+  int full;
+  int count;
+  double avg;
 };
 
 void AddMonthRecord(struct month *months, int number, int t);
 
-void SetYearData(struct year *year, int t, int recordsCount);
+void SetYearData(struct year *year, int t);
 
-#endif /* _TEMP_FUNCTIONS_H_ */
+void PrintYear(struct year *year);
+
+void PrintMonth(struct month *month, int number);
+
+void PrintMonthsStat(struct month *monthsStat, int number);
+
+#endif /* TEMP_FUNCTIONS_H */

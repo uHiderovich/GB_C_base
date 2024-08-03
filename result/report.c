@@ -4,43 +4,37 @@
 // #include <unistd.h>
 #include "temp_functions.h"
 
-// void PrintFunctions() {
-//   printf("-h Описание функционала приложения. Список ключей, которые обрабатывает данное приложение и их назначение\n");
-//   printf("-f <filename.csv> входной файл csv для обработки\n");
-//   printf("-m <номер месяца> если задан данный ключ, то выводится только статистика за указанный месяц\n");
-// }
 
-#define MONTHS_COUNT 12
+// int main(int argc, char const* argv[]) {
+int main() {
+  setlocale(LC_ALL, "Rus");
 
-void ReadFileData(char* filename) {
-  struct month months[MONTHS_COUNT];
-  struct year year;
-  int r, counter, Y, M, D, h, m, t, yearMin, yearMax, yearAvg, yearFull = 0;
+  char fileName[] = "temperature_small.csv";
 
-  FILE* file = fopen(filename, "r");
+  struct month monthsStat[MONTHS_COUNT];
+  struct year yearStat = { 0, 0, 0, 0, 0.0 };
+  int r;
+  int Y, M, D, h, m, t;
+
+  FILE* file = fopen(fileName, "r");
   if (!file) {
-    printf("Ошибка открытия файла %s.\n", filename);
+    printf("Can't open %s file.\n", fileName);
     return 1;
   };
 
-  while ((r = fscanf(file, "%Y;%M;%D;%h;%m;%t", &Y, &M, &D, &h, &m, &t)) > 0) {
-    SetYearData(year, t, counter++);
-    AddMonthRecord(months, M - 1, t);
+  while ((r = fscanf(file, "%d;%d;%d;%d;%d;%d", &Y, &M, &D, &h, &m, &t)) > 0) {
+    SetYearData(&yearStat, t);
+    AddMonthRecord(monthsStat, M - 1, t);
   }
-
   fclose(file);
-}
 
-int main(int argc, char const* argv[]) {
-  setlocale(LC_ALL, "Rus");
+  PrintYear(&yearStat);
+  PrintMonthsStat(monthsStat, -1);
 
-  char fileName[] = "temperature_big.csv";
-
-  ReadFileData(fileName);
 
   // int res = 0;
 
-  // while ((res = getopt(argc, argv, "hf:m:")) != -1) {
+  // while ((res = getopt(argc, argv, "hf:y:m:")) != -1) {
   //   switch (res) {
   //   printf("%s\n", optarg); break;
   //   printf("%s\n", optarg); break;
