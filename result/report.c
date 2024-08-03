@@ -5,9 +5,7 @@
 // #include <unistd.h>
 #include "temp_functions.h"
 
-
-
-void AddMonthRecord(struct month* months, int number, int t) {
+void SetMonthData(Month* months, int number, int t) {
   int currentMin = months[number].min;
   int currentMax = months[number].max;
 
@@ -15,10 +13,13 @@ void AddMonthRecord(struct month* months, int number, int t) {
   months[number].max = currentMax < t ? t : currentMax;
   months[number].full += t;
   months[number].count++;
+  // printf("Записей: %d\n", months[number].count);
+  // printf("полная: %d\n", months[number].full);
+  // printf("температура: %d\n", t);
   months[number].avg = (months[number].full / months[number].count);
 }
 
-void SetYearData(struct year* year, int t) {
+void SetYearData(Year* year, int t) {
   int currentMin = year->min;
   int currentMax = year->max;
 
@@ -26,10 +27,10 @@ void SetYearData(struct year* year, int t) {
   year->max = currentMax < t ? t : currentMax;
   year->full += t;
   year->count++;
-  year->avg = (year->full / year->count);
+  year->avg = ((year->full) / (year->count));
 }
 
-void PrintYear(struct year* year) {
+void PrintYear(Year* year) {
   printf("Статистика за год.\n");
   printf("Минимальная температура: %d\n", year->min);
   printf("Максимальная температура: %d\n", year->max);
@@ -37,7 +38,7 @@ void PrintYear(struct year* year) {
   printf("----------\n\n");
 }
 
-void PrintMonth(struct month* month, int number) {
+void PrintMonth(Month* month, int number) {
   printf("Месяц %d\n", number);
   printf("Минимальная температура: %d\n", month->min);
   printf("Максимальная температура: %d\n", month->max);
@@ -45,7 +46,7 @@ void PrintMonth(struct month* month, int number) {
   printf("----------\n\n");
 }
 
-void PrintMonthsStat(struct month* monthsStat, int number) {
+void PrintMonthsStat(struct Month* monthsStat, int number) {
   if (number >= 1 && number <= MONTHS_COUNT) {
     printf("Статистика за выбранный месяц.\n");
     PrintMonth(&monthsStat[number + 1], number);
@@ -58,40 +59,50 @@ void PrintMonthsStat(struct month* monthsStat, int number) {
   }
 }
 
-// int main(int argc, char const* argv[]) {
-int main() {
-  setlocale(LC_ALL, "Rus");
-
-  char fileName[] = "temperature_small.csv";
-
-  struct month monthsStat[MONTHS_COUNT];
-  struct year yearStat = { 0, 0, 0, 0, 0.0 };
+int FillTempStatOfFile(char* fileName, struct Month* monthsStat, struct Year* yearStat) {
   int r, rowsCount;
   int Y, M, D, h, m, t;
 
   FILE* file = fopen(fileName, "r");
   if (!file) {
-    printf("Can't open %s file.\n", fileName);
+    printf("Ошибка открытия файла %s.\n", fileName);
     return 1;
-  };
-
-  while ((r = fscanf(file, "%d;%d;%d;%d;%d;%d", &Y, &M, &D, &h, &m, &t)) > 0) {
-    rowsCount++;
-    if (r < COLUMNS_COUNT)
-    {
-      char s[20];
-      fscanf(file, "%[^\n]", s);
-      printf("Ошибка в строке %d: %s\n\n", rowsCount, s);
-    }
-    else {
-      SetYearData(&yearStat, t);
-      AddMonthRecord(monthsStat, M - 1, t);
-    }
   }
-  fclose(file);
+  else {
+    while ((r = fscanf(file, "%d;%d;%d;%d;%d;%d", &Y, &M, &D, &h, &m, &t)) > 0) {
+      rowsCount++;
+      if (r < COLUMNS_COUNT)
+      {
+        char s[20];
+        fscanf(file, "%[^\n]", s);
+        printf("Ошибка в строке %d: %s\n\n", rowsCount, s);
+      }
+      else {
+        SetYearData(yearStat, t);
+        SetMonthData(monthsStat, M - 1, t);
+      }
+    }
+    fclose(file);
+    return 0;
+  }
+}
 
-  PrintYear(&yearStat);
-  PrintMonthsStat(monthsStat, -1);
+// int main(int argc, char const* argv[]) {
+int main() {
+  setlocale(LC_ALL, "Rus");
+
+  char fileName[] = "temperature_small2.csv";
+
+  Month monthsStat[MONTHS_COUNT];
+  Year yearStat;
+
+  int readResult = FillTempStatOfFile(fileName, monthsStat, &yearStat);
+
+  if (readResult == 0) {
+    PrintYear(&yearStat);
+    PrintMonthsStat(monthsStat, -1);
+  }
+
 
 
   // int res = 0;
@@ -105,5 +116,5 @@ int main() {
   //   }
   // }
 
-  return 0;
+  return readResult;
 }

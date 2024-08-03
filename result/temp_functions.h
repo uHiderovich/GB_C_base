@@ -4,32 +4,34 @@
 #define MONTHS_COUNT 12
 #define COLUMNS_COUNT 6
 
-struct month
+typedef struct Month
 {
   int min;
   int max;
   int full;
   int count;
   double avg;
-};
+} Month;
 
-struct year
+typedef struct Year
 {
   int min;
   int max;
   int full;
   int count;
   double avg;
-};
+} Year;
 
-void AddMonthRecord(struct month *months, int number, int t);
+void SetMonthData(Month *months, int number, int t);
 
-void SetYearData(struct year *year, int t);
+void SetYearData(struct Year *year, int t);
 
-void PrintYear(struct year *year);
+void PrintYear(struct Year *year);
 
-void PrintMonth(struct month *month, int number);
+void PrintMonth(struct Month *month, int number);
 
-void PrintMonthsStat(struct month *monthsStat, int number);
+void PrintMonthsStat(struct Month *monthsStat, int number);
+
+int FillTempStatOfFile(char *fileName, struct Month *monthsStat, struct Year *yearStat);
 
 #endif /* TEMP_FUNCTIONS_H */
