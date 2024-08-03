@@ -2,6 +2,7 @@
 #define TEMP_FUNCTIONS_H
 
 #define MONTHS_COUNT 12
+#define COLUMNS_COUNT 6
 
 struct month
 {
